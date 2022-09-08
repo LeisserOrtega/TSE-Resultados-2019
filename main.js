@@ -8,7 +8,7 @@ const graficaheader = document.querySelector('.header-consulta')
 
 const boton = document.querySelector('.btn-primary')
 boton.addEventListener('click', () => {
-    console.log('diste click')
+  document.querySelector('.esconder-menu  ').click()
 })
 
 let myChart
