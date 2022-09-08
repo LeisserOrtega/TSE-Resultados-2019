@@ -8,9 +8,11 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://kit.fontawesome.com/b946b4c9ec.js" crossorigin="anonymous"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <title>TSE Guatemala</title>
 </head>
 <body>
+  <main >
     <header>
         <img src="https://resultados2019.tse.org.gt/img/logo2019i.png"/>
         <h2 class="logo-tse">
@@ -89,7 +91,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                  <button type="button" class="btn btn-primary" onclick="mostrarInfo()">Aceptar</button>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="obtieneInfo()">Aceptar</button>
                 </div>
               </div>
             </div>
@@ -97,24 +99,25 @@
     </div>
 
     <div class="header-consulta">
-
     </div>
     
 
     <div class="page">
         <div>
-            
+
             <div class="info-mesas">
 
             </div>
-            <!-- <div class="grafica-pie">
-                <canvas id="grafica2"></canvas>
-            </div> -->
-            <div class="contenedor-grafica">
-                <div class="grafics">
-                    <canvas id="grafica1"></canvas>
+           
+            <!-- <div class="contenedor-grafica"> -->
+                <!-- <div class="grafics"> -->
+                  <canvas id="myChart" width="400" height="400"></canvas>
+
+                  <div class="grafica-pie">
+                    <canvas id="myChart2" width="400" height="400"></canvas>
                 </div>
-            </div>
+                <!-- </div> -->
+            <!-- </div> -->
         </div>
         
         <div class="tabla-contenedor">
@@ -138,7 +141,7 @@
     <footer>
         <p>&copy;2019 TSE Guatemala, C. A.</p>
     </footer>
-
+  </main>
 <script src="main.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

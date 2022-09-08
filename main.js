@@ -1,197 +1,178 @@
-const $grafica = document.querySelector('#grafica1')
+const $grafica = document.getElementById('myChart');
 
 const informamesa = document.querySelector('.info-mesas')
 
+const contenedorgrafica = document.querySelector('.grafics')
 
+const graficaheader = document.querySelector('.header-consulta')
 
+let myChart
+let myChart2
 
+obtieneInfo()
 
-
-function mostrarInfo(){
-
-  let eleccion = document.getElementById('tipoConsultaEleccion')
-  let tipoeleccion = eleccion.value
-  let departamento = document.getElementById('tipoConsultaDepartamento')
-  let tipodepartamento = departamento.value
-  let municipio = document.getElementById('tipoConsultaMunicipio')
-  let tipomunicipio = municipio.value
+function obtieneInfo(){
+let eleccion = document.getElementById('tipoConsultaEleccion')
+let tipoeleccion = eleccion.value
+let departamento = document.getElementById('tipoConsultaDepartamento')
+let tipodepartamento = departamento.value
+let municipio = document.getElementById('tipoConsultaMunicipio')
+let tipomunicipio = municipio.value
 
 fetch(`https://votosgt.azurewebsites.net/api/votos?d=${tipodepartamento}&m=${tipomunicipio}&te=${tipoeleccion}`, {method: 'GET'})
 .then (respuesta => respuesta.json())
 .then(respuesta => JSON.parse(respuesta))
 .then(response => {
-const array = response.MESASPROCESADAS
-array.forEach(mesa => {
+const jsonCompleto = response
+const jsonMesas = response.MESASPROCESADAS
+const jsonVotos = response.VOTOS
+const jsonParticipacion = response.PARTICIPACION
+
+mostrarInfo(jsonMesas)
+graficaVotos(jsonVotos)
+graficaParticipacion(jsonParticipacion)
+pageHeader(jsonCompleto)
+tablavotos(jsonVotos,jsonCompleto)
+
+})
+}
+
+function mostrarInfo(jsonMesas){
+
   const titulo = document.createElement('h3')
-  titulo.textContent = mesa.D + ':'
+  titulo.textContent = jsonMesas[0].D + ':'
 
   const cantidadmesas = document.createElement('h4')
-  cantidadmesas.textContent = mesa.MESASPRO
+  cantidadmesas.textContent = jsonMesas[0].MESASPRO
 
   const titulo2 = document.createElement('h3')
   titulo2.textContent = ('Mesas no procesadas:')
 
   const cantidadmesasno = document.createElement('h4')
-  cantidadmesasno.textContent = mesa.MESASFALT
+  cantidadmesasno.textContent = jsonMesas[0].MESASFALT
 
   const titulo3 = document.createElement('h3')
   titulo3.textContent = ('Total de Mesas:')
 
   const cantidadmesastotal = document.createElement('h4')
-  cantidadmesastotal.textContent = parseInt(mesa.MESASFALT) + parseInt(mesa.MESASPRO) 
-
+  cantidadmesastotal.textContent = parseInt(jsonMesas[0].MESASFALT) + parseInt(jsonMesas[0].MESASPRO) 
+  
+  informamesa.innerHTML = ''
   informamesa.appendChild(titulo)
   informamesa.appendChild(cantidadmesas)
   informamesa.appendChild(titulo2)
   informamesa.appendChild(cantidadmesasno)
   informamesa.appendChild(titulo3)
   informamesa.appendChild(cantidadmesastotal)
-})}
-)
 
+}
 
+function graficaVotos(jsonVotos){
 
-fetch(`https://votosgt.azurewebsites.net/api/votos?d=${tipodepartamento}&m=${tipomunicipio}&te=${tipoeleccion}`, {method: 'GET'})
-.then (respuesta => respuesta.json())
-.then(respuesta => JSON.parse(respuesta))
-.then(response => {
-const array = response.VOTOS
 let etiquetas = []
-for (let i=0; i<array.length; i++){
-  etiquetas[i] = array[i].S
+for (let i=0; i<jsonVotos.length; i++){
+  etiquetas[i] = jsonVotos[i].S
 }
 let cantidadvotos = []
-for (let i=0; i<array.length; i++){
-  cantidadvotos[i] = array[i].V
+for (let i=0; i<jsonVotos.length; i++){
+  cantidadvotos[i] = jsonVotos[i].V
 }
 let colorfondo = []
-for (let i=0; i<array.length; i++){
-  colorfondo[i] = array[i].C
+for (let i=0; i<jsonVotos.length; i++){
+  colorfondo[i] = jsonVotos[i].C
 }
-const datosvotos2022 = {
-  label: 'Votos por Organización Pólitica',
-  data: cantidadvotos,
-  backgroundColor: colorfondo,
-  borderColor: 'rgba(0,0,0,1)',
-  borderWidth: 1,
+
+if(myChart){
+  myChart.destroy()
 }
-new Chart($grafica, {
-  type: 'bar', //Tipo de Grafica
+
+myChart = new Chart($grafica, {
+  type: 'bar',
   data: {
       labels: etiquetas,
-      datasets: [
-          datosvotos2022,
-          //Aca podrian ir mas datos
-      ]
+      datasets: [{
+          label: 'Votos por Organización Pólitica',
+          data: cantidadvotos,
+          backgroundColor: colorfondo,
+          borderColor: colorfondo,
+          borderWidth: 1
+      }]
   },
   options: {
-      indexAxis: 'x',
       scales: {
-          yAxes: [{
-              ticks: {
-                  beginAtZero: true
-              }
-          }]
+          y: {
+              beginAtZero: true
+          }
       }
   }
-})
+});
   
 }
 
-)
 
 
-const $grafica2 = document.querySelector('#grafica2')
 
-fetch(`https://votosgt.azurewebsites.net/api/votos?d=${tipodepartamento}&m=${tipomunicipio}&te=${tipoeleccion}`, {method: 'GET'})
-.then (respuesta => respuesta.json())
-.then(respuesta => JSON.parse(respuesta))
-.then(response => {
-const array = response.PARTICIPACION
+const $grafica2 = document.getElementById('myChart2')
+function graficaParticipacion(jsonParticipacion){
+
 let etiquetas = []
-for (let i=0; i<array.length; i++){
-  etiquetas[i] = array[i].D
+for (let i=0; i<jsonParticipacion.length; i++){
+  etiquetas[i] = jsonParticipacion[i].D
 }
 let cantidadvotos = []
-for (let i=0; i<array.length; i++){
-  cantidadvotos[i] = array[i].V
+for (let i=0; i<jsonParticipacion.length; i++){
+  cantidadvotos[i] = jsonParticipacion[i].V
 }
 let colorfondo = []
-for (let i=0; i<array.length; i++){
-  colorfondo[i] = array[i].C
+for (let i=0; i<jsonParticipacion.length; i++){
+  colorfondo[i] = jsonParticipacion[i].C
 }
-const datosvotos2022 = {
-  label: 'Votos por Organización Pólitica',
-  data: cantidadvotos,
-  backgroundColor: colorfondo,
-  borderColor: 'rgba(0,0,0,1)',
-  borderWidth: 1,
+
+if(myChart2){
+  myChart2.destroy()
 }
-new Chart($grafica2, {
-  type: 'doughnut', //Tipo de Grafica
+
+myChart2 = new Chart($grafica2, {
+  type: 'doughnut',
   data: {
       labels: etiquetas,
-      datasets: [
-          datosvotos2022,
-          //Aca podrian ir mas datos
-      ]
-  },
-  options: {
-      indexAxis: 'x',
-      scales: {
-          yAxes: [{
-              ticks: {
-                  beginAtZero: true
-              }
-          }]
-      }
+      datasets: [{
+          label: 'Participación',
+          data: cantidadvotos,
+          backgroundColor: colorfondo,
+          hoverOffset: 20
+      }]
   }
-})
+});
   
 }
 
-)
 
 
-const graficaheader = document.querySelector('.header-consulta')
 
-fetch(`https://votosgt.azurewebsites.net/api/votos?d=${tipodepartamento}&m=${tipomunicipio}&te=${tipoeleccion}`, {method: 'GET'})
-.then (respuesta => respuesta.json())
-.then(respuesta => JSON.parse(respuesta))
-.then(response => {
-  
+function pageHeader(jsonCompleto){
   const tiposeleccion = document.createElement('h3')
-  tiposeleccion.textContent = response.NTE
+  tiposeleccion.textContent = jsonCompleto.NTE
   
   const breakpoint = document.createElement('br')
 
   const nivelConsulta = document.createElement('h4')
-  nivelConsulta.textContent = response.NMUN + ', ' + response.NDEP
+  nivelConsulta.textContent = jsonCompleto.NMUN + ', ' + jsonCompleto.NDEP
 
   const FechayHora = document.createElement('h5')
-  FechayHora.textContent = 'Fecha y Hora ' + response.FECHAHORA
+  FechayHora.textContent = 'Fecha y Hora ' + jsonCompleto.FECHAHORA
 
+  graficaheader.innerHTML = ''
   graficaheader.appendChild(tiposeleccion)
   graficaheader.appendChild(breakpoint)
   graficaheader.appendChild(nivelConsulta)
   graficaheader.appendChild(FechayHora)
-  } 
-)
+} 
 
 
-fetch(`https://votosgt.azurewebsites.net/api/votos?d=${tipodepartamento}&m=${tipomunicipio}&te=${tipoeleccion}`, {method: 'GET'})
-.then (respuesta => respuesta.json())
-.then(respuesta => JSON.parse(respuesta))
-.then(response => {
-const array = response.VOTOS
-tablavotos(array,response)
-})
-
-
-tablavotos()
-function tablavotos(arreglo,response){
-    // contenido.innerHTML = ''
-    for(let valor of arreglo){
+function tablavotos(jsonVotos,jsonCompleto){
+    contenido.innerHTML = ''
+    for(let valor of jsonVotos){
         contenido.innerHTML += `
 
         <tr>
@@ -207,39 +188,38 @@ function tablavotos(arreglo,response){
         contenido.innerHTML += `
       <tr>
         <td>Total votos válidos:</td>
-        <td>${response.VOTOSVALIDOS}</td>
-        <td>${response.PVOTOSVALIDOS}</td>
+        <td>${jsonCompleto.VOTOSVALIDOS}</td>
+        <td>${jsonCompleto.PVOTOSVALIDOS}</td>
     </tr>
     
     
     <tr>
         <td>Votos nulos:</td>
-        <td>${response.NULOS}</td>
-        <td>${response.PNULOS}</td>
+        <td>${jsonCompleto.NULOS}</td>
+        <td>${jsonCompleto.PNULOS}</td>
     </tr>
     <tr>
         <td>Votos en blanco:</td>
-        <td>${response.BLANCOS}</td>
-        <td>${response.PBLANCOS}</td>
+        <td>${jsonCompleto.BLANCOS}</td>
+        <td>${jsonCompleto.PBLANCOS}</td>
     </tr>
     <tr>
         <td>Total votos válidamente emitidos:</td>
-        <td>${response.TOTALACTA}</td>
-        <td>${response.PTOTALACTA}</td>
+        <td>${jsonCompleto.TOTALACTA}</td>
+        <td>${jsonCompleto.PTOTALACTA}</td>
     </tr>
     <tr>
         <td>Votos inválidos:</td>
-        <td>${response.INVALIDOS}</td>
-        <td>${response.PINVALIDOS}</td>
+        <td>${jsonCompleto.INVALIDOS}</td>
+        <td>${jsonCompleto.PINVALIDOS}</td>
     </tr>
     <tr>
         <td>Impugnaciones:</td>
-        <td>${response.CNTIMPUGNA}</td>
-        <td>${response.PCNTIMPUGNA}</td>
+        <td>${jsonCompleto.CNTIMPUGNA}</td>
+        <td>${jsonCompleto.PCNTIMPUGNA}</td>
     </tr>
       
         `
     }
 
-}
 }
