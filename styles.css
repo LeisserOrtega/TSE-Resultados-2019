@@ -1,0 +1,276 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Lato', sans-serif;
+
+}
+
+
+/* HEADER */
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1c3765;
+    padding: 0 50px;
+    color: white;
+}
+
+.page{
+    display: flex;
+    justify-content: center;
+}
+
+.tabla-contenedor{
+    display: flex;
+    justify-content: center;
+    margin-left: 15%;
+    background-color: aliceblue;
+}
+
+.info-mesas{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    margin: 10px;
+    /* margin: 10px; */
+}
+
+.info-mesas>h3,h4{
+    font-size: 20px;
+    padding: 10px;
+}
+.info-mesas>h3{
+    font-weight: 550;
+}
+
+.logo-tse{
+    max-width: 650px;
+}
+
+.menu a{
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    transition: 0.5s ease;
+    border-right: 2px solid rgb(255, 255, 255);
+}
+
+.menu button{
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    transition: 0.5s ease;
+    border-right: 2px solid rgb(255, 255, 255);
+}
+
+#mesas{
+    border: none;
+}
+
+
+.mostrar-menu, 
+.esconder-menu{
+    display: none;
+    cursor: pointer;
+    font-size: 30px;
+}
+
+.mostrar-menu{
+    order: 1;
+}
+
+.menu a:hover,
+.mostrar-menu:hover,
+.esconder-menu:hover{
+    color: #7babfd;
+}
+
+#check{
+    display: none;
+}
+
+/* /BANNER/ */
+
+#banner{
+    padding: 0 50px;
+    background-image: url(https://res.cloudinary.com/cees/image/upload/c_fit,w_1600,q_auto/v1578969477/irigi88v3ab592bx49tp.jpg);
+    background-repeat: initial;
+    height: 45vh;
+    background-size: contain;
+    background-position: center;
+
+}
+
+#banner:before{
+    content: ' ';
+    background: rgba(77,77,92,0.6) ;
+    position: absolute;
+    height: 45vh;
+    width: 100%;
+    left: 0;
+}
+
+.contenido-banner{
+    position: relative;
+    color: white;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenido-banner h3{
+    font-size: 30px;
+    font-weight: 400;
+    padding: 10px 0px;
+}
+
+.contenido-banner h3 span {
+    font-weight: 600;
+}
+
+.boton-empezar{
+    text-decoration: none;
+    color: white;
+    border: 1px solid #1c3765;
+    padding: 20px 40px;
+    align-self: baseline;
+    transition: all 0.4s;
+}
+.boton-empezar:hover{
+    background: #1c3765;
+}   
+
+/* GRAFICAS */
+
+
+.header-consulta{
+    /* background-color: lightblue; */
+    border: 1px solid black;
+    font-size: 20px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.header-consulta>h4{
+    padding: 0;
+}
+
+
+
+.contenedor-grafica{
+    /* flex-direction: column; */
+    /* max-width: 100%; */
+    /* background-color: #1c3765; */
+}   
+
+.grafics {
+    padding: 10px;
+    text-align: center;
+    /* margin: 10px; */
+    width: 1100px;
+    /* background-color: cornflowerblue;  */
+}
+
+.col1{
+}
+
+.grafica-pie{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+}
+
+#grafica2{
+    max-width: 300px;
+    max-height: 300px;
+}
+
+/* table{
+    max-width: 60%;
+} */
+
+
+/* footer */
+footer{
+    background-color: #1c3765;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+
+/* RESPONSIVE  (AQUI USAMOS LAS MEDIA QUERYS :o) */
+@media(max-width: 820px){
+    .page{
+        flex-direction: column;
+    }
+
+    .tabla-contenedor{
+        margin-left: 0%;
+    }
+
+    .info-mesas{
+        flex-direction: column;
+    }
+
+    .grafica-pie{
+        width: 100%;
+    }
+
+    .grafics{
+        width: 100%;
+    }
+
+    table{
+        width: 100%;
+    }
+
+    /* /Header/ */
+    .mostrar-menu,
+    .esconder-menu{
+        display: block;
+    }
+
+    .menu{
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        color: white;
+        background-color: black;
+        right: -100%;
+        top: 0;
+        text-align: center;
+        padding: 100px 0px;
+        z-index: 100;
+        transition: 0.8s;
+    }
+    
+    .menu a{
+        display: block;
+        padding: 10px;
+    }
+
+    .esconder-menu{
+        position: absolute;
+        top: 40px;
+        right: 40px;
+    }
+    #check:checked ~ .menu{
+        right: 0;
+
+    }
+/* PERSONAS */
+#personas{
+    flex-direction: column;
+}
+
+
+
+}
+
+
