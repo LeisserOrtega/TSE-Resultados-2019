@@ -25,7 +25,7 @@ header{
     display: flex;
     justify-content: center;
     margin-left: 15%;
-    background-color: aliceblue;
+    /* background-color: aliceblue; */
 }
 
 .info-mesas{
@@ -200,10 +200,6 @@ footer{
         flex-direction: column;
     }
 
-    table{
-        width: 100%;
-    }
-
     /* /Header/ */
     .mostrar-menu,
     .esconder-menu{
@@ -245,7 +241,7 @@ footer{
 }
 
 
-/* @media screen and (max-width: 1024px){
+@media screen and (max-width: 1024px){
     .page{
         flex-direction: column;
     }
@@ -268,5 +264,4 @@ footer{
 
 
 
-} */
-
+}
