@@ -5,6 +5,9 @@
 
 }
 
+body{
+    background-color: rgba(128, 128, 128, 0.055);
+}
 
 /* HEADER */
 header{
@@ -19,6 +22,10 @@ header{
 .page{
     display: flex;
     justify-content: center;
+    border: 2px solid black;
+    background-color: white;
+    padding: 10px;
+    margin: 10px;
 }
 
 .tabla-contenedor{
@@ -153,11 +160,12 @@ header{
 
 
 .header-consulta{
-    /* background-color: lightblue; */
-    border: 1px solid black;
+    background-color: white;
+    border: 2px solid black;
     font-size: 20px;
     margin: 10px;
     padding: 10px;
+
 }
 
 .header-consulta>h4{
@@ -190,6 +198,7 @@ footer{
 
     .page{
         flex-direction: column;
+        
     }
 
     .tabla-contenedor{
