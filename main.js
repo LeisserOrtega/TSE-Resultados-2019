@@ -11,13 +11,6 @@ boton.addEventListener('click', () => {
   document.querySelector('.esconder-menu  ').click()
 })
 
-const darkmode = document.body
-function darkMode(){
-darkmode.classList.toggle('dark-mode')
-}
-
-
-
 let myChart
 let myChart2
 
