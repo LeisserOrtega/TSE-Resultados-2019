@@ -12,7 +12,7 @@
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <title>TSE Guatemala - Elecciones Generales y al Parlamento Centroamericano 2019</title>
 </head>
-<body class="dark-mode">
+<body onload="obtieneInfo()">
   <main >
     <header>
         <img src="https://resultados2019.tse.org.gt/img/logo2019i.png"/>
@@ -44,7 +44,7 @@
         </div>
         
     </section>
-
+    
     <!-- MODAL -->
     <div >
         <div class="modal fade" id="tipoEleccion" tabindex="-1" role="dialog" aria-labelledby="tipoEleccion" aria-hidden="true">
@@ -59,32 +59,25 @@
                 <div class="modal-body">
                   <form>
                     <div class="form-group">
-                      <label for="recipient-name" class="col-form-label">Tipo de Elección</label>
-                      <select class="form-control" id="tipoConsultaEleccion">
-                        <option value="1">PRESIDENTE Y VICEPRESIDENTE</option>
-                        <option value="4">CORPORACION MUNICIPAL</option>
+                      <label for="recipient-name" class="col-form-label">Seleccion un tipo de elección</label>
+                      <select class="form-control" id="tipoConsultaEleccion" >
+                        <option value="1">Presidenete y Vicepresidente</option>
+                        <option value="4">Corporación Municipal</option>
                       </select>
                       <!-- <input type="" class="form-control" id="recipient-name"> -->
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Departamento</label>
-                        <select class="form-control" id="tipoConsultaDepartamento">
+                        <label for="recipient-name" class="col-form-label">Seleccion un departamento:</label>
+                        <select class="form-control" id="tipoConsultaDepartamento" onchange="cargar_municipios()">
                           <option  value="0">NIVEL NACIONAL</option>
                           <option  value="4">EL PROGRESO</option>
                         </select>
                         <!-- <input type="" class="form-control" id="recipient-name"> -->
                     </div>
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Municipio</label>
-                        <select class="form-control" id="tipoConsultaMunicipio">
-                          <option value="0">NIVEL DEPARTAMENTAL</option>
-                          <option value="1">GUASTATOYA</option>
-                          <option value="2">MORAZÁN</option>
-                          <option value="3">SAN AGUSTÍN ACASAGUASTLÁN</option>
-                          <option value="4">EL JÍCARO</option>
-                          <option value="5">SANSARE</option>
-                          <option value="6">SANARATE</option>
-                          <option value="7">SAN ANTONIO LA PAZ</option>
+                        <label for="recipient-name" class="col-form-label">Seleccione un municipio:</label>
+                        <select class="form-control" id="tipoConsultaMunicipio" name="tipoConsultaMunicipio">
+                        <!-- <select class="form-control" name="tipoConsultaMunicipio" id="tipoConsultaMunicipio"> -->
                         </select>
                         <!-- <input type="" class="form-control" id="recipient-name"> -->
                     </div>
@@ -141,6 +134,9 @@
       </div>
 
  
+      <!-- Error Message -->
+      
+
     <footer>
         <p>&copy;2019 TSE Guatemala, C. A.</p>
     </footer>

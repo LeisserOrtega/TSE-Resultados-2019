@@ -6,6 +6,49 @@ const contenedorgrafica = document.querySelector('.grafics')
 
 const graficaheader = document.querySelector('.header-consulta')
 
+function myOnLoad() {
+  cargar_municipios()
+ }
+ let select
+cargar_municipios()
+
+
+function cargar_municipios() {
+  var municipios4 = ["NIVEL DEPARTAMENTAL","GUASTATOYA", "MORAZÁN", "SAN AGUSTÍN ACASAGUASTLÁN", "SAN CRISTÓBAL ACASAGUASTLÁN", "EL JÍCARO",
+  "SANSARE","SANARATE","SAN ANTONIO LA PAZ"
+]; 
+let municipios0 = ["NIVEL NACIONAL"]
+let departamento = document.getElementById('tipoConsultaDepartamento')
+let tipodepartamento = departamento.value
+let listamunicipios
+if(tipodepartamento === '0'){
+  listamunicipios = municipios0
+}else{
+  listamunicipios = municipios4
+}
+
+  addOptions("tipoConsultaMunicipio", listamunicipios);
+ }
+
+ // Rutina para agregar opciones a un <select>
+ function addOptions(elemento, municipios4) {
+  if(select){
+    select.innerHTML = ''
+  }
+  select = document.getElementsByName(elemento)[0];
+  let valormun = 0
+ 
+  
+  for (value in municipios4) {
+   var option = document.createElement("option");
+   option.text = municipios4[value];
+   option.value = valormun++
+   select.add(option);
+  }
+ }
+      
+
+
 const boton = document.querySelector('.btn-primary')
 boton.addEventListener('click', () => {
   document.querySelector('.esconder-menu  ').click()
@@ -23,6 +66,7 @@ let departamento = document.getElementById('tipoConsultaDepartamento')
 let tipodepartamento = departamento.value
 let municipio = document.getElementById('tipoConsultaMunicipio')
 let tipomunicipio = municipio.value
+
 
 fetch(`https://votosgt.azurewebsites.net/api/votos?d=${tipodepartamento}&m=${tipomunicipio}&te=${tipoeleccion}`, {method: 'GET'})
 .then (respuesta => respuesta.json())
@@ -229,3 +273,6 @@ function tablavotos(jsonVotos,jsonCompleto){
     }
 
 }
+
+
+
