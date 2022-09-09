@@ -6,7 +6,7 @@
 }
 
 body{
-    background-color: rgba(128, 128, 128, 0.055);
+    background-color: rgba(153, 153, 153, 0.212);
 }
 
 /* HEADER */
@@ -18,6 +18,8 @@ header{
     padding: 0 50px;
     color: white;
 }
+
+
 
 .page{
     display: flex;
