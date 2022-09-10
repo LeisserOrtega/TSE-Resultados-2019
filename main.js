@@ -7,9 +7,11 @@ const contenedorgrafica = document.querySelector('.grafics')
 const graficaheader = document.querySelector('.header-consulta')
 
 function myOnLoad() {
-  cargar_municipios()
+  cargar_departamentos()
  }
  let select
+ let selectdepartamentos
+
 cargar_municipios()
 
 
@@ -17,34 +19,78 @@ function cargar_municipios() {
   var municipios4 = ["NIVEL DEPARTAMENTAL","GUASTATOYA", "MORAZÁN", "SAN AGUSTÍN ACASAGUASTLÁN", "SAN CRISTÓBAL ACASAGUASTLÁN", "EL JÍCARO",
   "SANSARE","SANARATE","SAN ANTONIO LA PAZ"
 ]; 
+var municipios5 = ["GUASTATOYA", "MORAZÁN", "SAN AGUSTÍN ACASAGUASTLÁN", "SAN CRISTÓBAL ACASAGUASTLÁN", "EL JÍCARO",
+  "SANSARE","SANARATE","SAN ANTONIO LA PAZ"
+]; 
 let municipios0 = ["NIVEL NACIONAL"]
 let departamento = document.getElementById('tipoConsultaDepartamento')
 let tipodepartamento = departamento.value
 let listamunicipios
-if(tipodepartamento === '0'){
+let eleccion = document.getElementById('tipoConsultaEleccion')
+let tipoeleccion = eleccion.value
+if(tipoeleccion==='4' && tipodepartamento==='4'){
+  listamunicipios=municipios5
+}
+if(tipoeleccion==='1' && tipodepartamento === '0'){
   listamunicipios = municipios0
-}else{
+}
+if(tipoeleccion==='1' && tipodepartamento === '4'){
   listamunicipios = municipios4
 }
-
-  addOptions("tipoConsultaMunicipio", listamunicipios);
+  addOptionsmunicipios("tipoConsultaMunicipio", listamunicipios);
  }
 
+
  // Rutina para agregar opciones a un <select>
- function addOptions(elemento, municipios4) {
+ function addOptionsmunicipios(elemento1, listamunicipios) {
   if(select){
     select.innerHTML = ''
   }
-  select = document.getElementsByName(elemento)[0];
+  select = document.getElementsByName(elemento1)[0];
   let valormun = 0
  
   
-  for (value in municipios4) {
-   var option = document.createElement("option");
-   option.text = municipios4[value];
-   option.value = valormun++
-   select.add(option);
+  for (value in listamunicipios) {
+    var option = document.createElement("option");
+    option.text = listamunicipios[value];
+    option.value = valormun++
+    select.add(option);
+   }
+ }
+
+ function cargar_departamentos() {
+  let departamentos1 = ["NIVEL NACIONAL","EL PROGRESO"]
+  let departamentos4 = ["EL PROGRESO"]
+  let eleccion = document.getElementById('tipoConsultaEleccion')
+  let tipoeleccion = eleccion.value
+  let listadepartamentos
+  
+  if(tipoeleccion === '1'){
+    listadepartamentos = departamentos1
+  }else{
+    listadepartamentos = departamentos4
   }
+    addOptionsDepartamentos("tipoConsultaDepartamento", listadepartamentos);
+   }
+ 
+ function addOptionsDepartamentos(elemento1, listadepartamentos) {
+  if(selectdepartamentos){
+    selectdepartamentos.innerHTML = ''
+  }
+  selectdepartamentos = document.getElementsByName(elemento1)[0];
+  let valormun = 4
+  let valormun2 = -4
+  for (value in listadepartamentos) {
+    var option = document.createElement("option");
+    option.text = listadepartamentos[value];
+    if (listadepartamentos.length === 1){
+    option.value = valormun
+    }else{
+      option.value=valormun2+=4
+    }
+    
+    selectdepartamentos.add(option);
+   }
  }
       
 
