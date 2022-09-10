@@ -43,17 +43,24 @@ if(tipoeleccion==='1' && tipodepartamento === '4'){
 
  // Rutina para agregar opciones a un <select>
  function addOptionsmunicipios(elemento1, listamunicipios) {
+  let eleccion = document.getElementById('tipoConsultaEleccion')
+  let tipoeleccion = eleccion.value
   if(select){
     select.innerHTML = ''
   }
   select = document.getElementsByName(elemento1)[0];
   let valormun = 0
- 
+  let valormun2 = 1
   
   for (value in listamunicipios) {
     var option = document.createElement("option");
     option.text = listamunicipios[value];
+    if(tipoeleccion==='4'){
+      option.value = valormun2++
+    }
+    else{
     option.value = valormun++
+    }
     select.add(option);
    }
  }
